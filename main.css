@@ -1,0 +1,9 @@
+body {
+    background-color: coral;
+}
+
+header {
+    display: flex;
+    align-content: center
+;
+}
