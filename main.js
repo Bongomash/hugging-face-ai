@@ -26,8 +26,7 @@ function handleFormSubmit(event) {
     const userPrompt = `Generate a music proposal based on the following preferences:
     Genre: ${genre}
     Mood: ${mood}
-    Favorite Artists: ${artists} u must answer in the song name and artist, and only use songs that are found on spotify`;
-
+    Favorite Artists: ${artists}. Provide 5 proposals in a numbered list format.`;
 
     // Fetch suggestions from the API
     fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct/v1/chat/completions", {
@@ -58,9 +57,17 @@ function handleFormSubmit(event) {
             // Extract the suggestion content
             const suggestion = data.choices[0]?.message?.content || "No suggestion available.";
 
-            // Update the content of the proposal-result paragraph
+            // Split suggestions into lines and filter out the last item if it contains unwanted text
+            const proposals = suggestion
+                .split("\n")
+                .filter(line => line.trim() !== "" && !line.trim().toLowerCase().includes("user"));
+
+            // Convert the remaining suggestions into a list format
+            const proposalList = proposals.map(item => `<li>${item}</li>`).join("");
+
+            // Update the content of the proposal-result with a formatted list
             const proposalOutput = document.getElementById("proposal-result");
-            proposalOutput.textContent = suggestion;
+            proposalOutput.innerHTML = `<ul>${proposalList}</ul>`;
 
             // Optionally, make the output section visible if it was hidden
             document.getElementById("proposal-output").style.display = "block";
