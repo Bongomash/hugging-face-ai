@@ -80,3 +80,4 @@ function handleFormSubmit(event) {
 
 // Attach the event listener to the form
 document.getElementById("music-form").addEventListener("submit", handleFormSubmit);
+// TESTING COMMIT
