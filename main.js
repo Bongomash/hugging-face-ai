@@ -26,7 +26,7 @@ function handleFormSubmit(event) {
     const userPrompt = `Generate a music proposal based on the following preferences:
     Genre: ${genre}
     Mood: ${mood}
-    Favorite Artists: ${artists}. Provide 5 proposals in a numbered list format.`;
+    Favorite Artists: ${artists}. Provide 5 song proposals based in a numbered list format.`;
 
     // Fetch suggestions from the API
     fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct/v1/chat/completions", {
